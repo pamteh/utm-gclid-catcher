@@ -3,7 +3,7 @@
 Plugin Name:  UTM & GCLID catcher
 Plugin URI:   https://pamteh.si/en/wp-utm-plugin/
 Description:  A simple plugin to capture and save UTM tags and the Google Click Identifier (GCLID) in cookies, allowing them to be sent through forms. Also adds WPForms tags for UTM and GCLID.
-Version:      1.0
+Version:      1.1
 Author:       Pamteh.si
 Author URI:   https://pamteh.si
 License:      GPL2
@@ -37,7 +37,7 @@ function wpf_dev_process_smarttag( $content, $tag ) {
         $tag === 'utm_content'
     ) {
         if(isset($_COOKIE['utm-plugin_'.$tag])){
-            $content = str_replace( '{'.$tag.'}', $_COOKIE['utm-plugin_'.$tag], $content );
+            $content = esc_html(str_replace( '{'.$tag.'}', $_COOKIE['utm-plugin_'.$tag], $content ));
         }
 
     }
@@ -63,22 +63,22 @@ add_filter('query_vars', 'add_my_var');
 function utm_plugin_save_data()
 {
     if ( get_query_var('gclid') ) {
-        setcookie('utm-plugin_gclid', get_query_var('gclid'), time()+3600*24*90);
+        setcookie('utm-plugin_gclid', sanitize_text_field(get_query_var('gclid')), time()+3600*24*90);
     }
     if ( get_query_var('utm_source') ) {
-        setcookie('utm-plugin_utm_source', get_query_var('utm_source'), time()+3600*24*90);
+        setcookie('utm-plugin_utm_source', sanitize_text_field(get_query_var('utm_source')), time()+3600*24*90);
     }
     if ( get_query_var('utm_medium') ) {
-        setcookie('utm-plugin_utm_medium', get_query_var('utm_medium'), time()+3600*24*90);
+        setcookie('utm-plugin_utm_medium', sanitize_text_field(get_query_var('utm_medium')), time()+3600*24*90);
     }
     if ( get_query_var('utm_campaign') ) {
-        setcookie('utm-plugin_utm_campaign', get_query_var('utm_campaign'), time()+3600*24*90);
+        setcookie('utm-plugin_utm_campaign', sanitize_text_field(get_query_var('utm_campaign')), time()+3600*24*90);
     }
     if ( get_query_var('utm_term') ) {
-        setcookie('utm-plugin_utm_term', get_query_var('utm_term'), time()+3600*24*90);
+        setcookie('utm-plugin_utm_term', sanitize_text_field(get_query_var('utm_term')), time()+3600*24*90);
     }
     if ( get_query_var('utm_content') ) {
-        setcookie('utm-plugin_utm_content', get_query_var('utm_content'), time()+3600*24*90);
+        setcookie('utm-plugin_utm_content', sanitize_text_field(get_query_var('utm_content')), time()+3600*24*90);
     }
 
 }
