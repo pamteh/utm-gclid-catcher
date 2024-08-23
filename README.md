@@ -5,7 +5,7 @@ Requires WordPress at least: 4.7
 
 Tested up to WordPress: 6.6.1
 
-Stable tag: 1.0
+Stable tag: 1.1
 
 Requires PHP: 7.0
 
